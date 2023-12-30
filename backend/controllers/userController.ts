@@ -1,9 +1,12 @@
+require("dotenv").config();
 import { Request, Response, NextFunction } from "express";
 import userModel, { IUser } from "../models/userModel";
 import ErrorHandler from "../utils/ErrorHandler";
 import { catchAsyncError } from "../middleware/catchAsyncError";
 import jwt, { Secret } from "jsonwebtoken";
-require("dotenv").config();
+import ejs from "ejs";
+import path from "path";
+import sendMail from "../utils/sendMail";
 
 // register user
 interface IRegistrationBody {
@@ -28,6 +31,27 @@ export const registerUser = catchAsyncError(
         avatar,
       };
       const activationToken = createActivationToken(user);
+      const activationCode = activationToken.activationCode;
+      const data = { user: { name: user.name }, activationCode };
+      const html = await ejs.renderFile(
+        path.join(__dirname, "../mails/activation-mail.ejs"),
+        data
+      );
+      try {
+        await sendMail({
+          email: user.email,
+          subject: "Activate your account",
+          template: "activation-mail.ejs",
+          data,
+        });
+        res.status(200).json({
+          success: true,
+          message: `please check your email ${user.email} to activate your account`,
+          activationToken: activationToken.token,
+        });
+      } catch (error: any) {
+        return next(new ErrorHandler(error.message, 400));
+      }
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
@@ -39,7 +63,7 @@ interface IActivationToken {
   activationCode: string;
 }
 export const createActivationToken = (user: any): IActivationToken => {
-  const activationCode = Math.floor(Math.random() * 9000).toString();
+  const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
   const token = jwt.sign(
     { activationCode },
     process.env.ACTIVATION_SECRET as Secret,
