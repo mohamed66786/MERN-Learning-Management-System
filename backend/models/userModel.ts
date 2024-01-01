@@ -41,7 +41,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "please inter your password"],
       minLength: [4, "Password must be at least 4 characters"],
       select: false,
     },
@@ -75,17 +74,21 @@ userSchema.pre<IUser>("save", async function (next) {
   next();
 });
 //sign access token
-userSchema.methods.signAccessToken = function () {
+userSchema.methods.SignAccessToken = function () {
   //  jwt.sign(payload,secretKey,options)
-  return jwt.sign({ id: this._id }, process.env.ACCESS_TOKEN || "");
+  return jwt.sign({ id: this._id }, process.env.ACCESS_TOKEN || "", {
+    expiresIn: "5m",
+  });
 };
 //sign refresh token
-userSchema.methods.signAccessToken = function () {
-  return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN || "");
+userSchema.methods.SignRefreshToken = function () {
+  return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN || "", {
+    expiresIn: "5d",
+  });
 };
 
 // middleware for comparing the password
-userSchema.methods.comparePassword = async function (
+userSchema.methods.comparePasswords = async function (
   enteredPassword: string
 ): Promise<boolean> {
   return await bcrypt.compare(enteredPassword, this.password);
@@ -93,5 +96,3 @@ userSchema.methods.comparePassword = async function (
 
 const userModel: Model<IUser> = mongoose.model("User", userSchema);
 export default userModel;
-
-
