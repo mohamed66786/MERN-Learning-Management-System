@@ -42,7 +42,9 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     password: {
       type: String,
       minLength: [4, "Password must be at least 4 characters"],
-      select: false,
+      select: false, // that will not selected in user
+      // if u want to select it u should select it while calling the user from database
+      // using .select("+password")###########
     },
     avatar: {
       public_id: String,
