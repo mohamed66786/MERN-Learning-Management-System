@@ -61,7 +61,7 @@ export const registerUser = catchAsyncError(
         return next(new ErrorHandler(error.message, 400));
       }
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -120,7 +120,7 @@ export const activateUser = catchAsyncError(
         message: "User created successfully",
       });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -153,7 +153,7 @@ export const loginUser = catchAsyncError(
       }
       sendToken(user, 200, res);
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -169,7 +169,7 @@ export const logoutUser = catchAsyncError(
         message: "User logged out successfully ",
       });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -216,7 +216,7 @@ export const updateAccessToken = catchAsyncError(
 
       res.status(200).json({ success: true, accessToken });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -251,7 +251,7 @@ export const socialAuth = catchAsyncError(
         sendToken(user, 200, res);
       }
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -285,7 +285,7 @@ export const updateUserInfo = catchAsyncError(
         user,
       });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -323,7 +323,7 @@ export const updateUserPassword = catchAsyncError(
         user,
       });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -371,7 +371,7 @@ export const updateProfilePicture = catchAsyncError(
         user,
       });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
