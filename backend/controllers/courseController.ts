@@ -6,6 +6,7 @@ import cloudinary from "cloudinary";
 import { createCourse } from "../services/course.service";
 import courseModel from "../models/courseModel";
 import { redis } from "../utils/redis";
+import mongoose from "mongoose";
 
 // upload course
 export const uploadCourse = catchAsyncError(
@@ -137,7 +138,60 @@ export const getAllCourse = catchAsyncError(
 export const getCourseByUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const userCoursesList = req.user?.courses;
+      const courseId = req.params.id;
+      const courseExists = userCoursesList?.find(
+        (course: any) => course._id === courseId
+      );
+      if (!courseExists) {
+        return next(
+          new ErrorHandler("Your are not able to access this course!", 404)
+        );
+      }
+      const course = await courseModel.findById(courseId);
+      const content = course?.coursData;
+      res.status(200).json({
+        success: true,
+        content,
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
+
+// add questions to course
+interface IAddQuestionData {
+  question: string;
+  courseId: string;
+  contentId: string;
+}
+export const addQuestion = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { question, courseId, contentId }: IAddQuestionData = req.body;
+      const course = await courseModel.findById(courseId);
+      // first check if the id that sent is valid or not
+      if (!mongoose.Types.ObjectId.isValid(contentId)) {
+        return next(new ErrorHandler("Invalid content ID !", 400));
+      }
+      const courseContent = course?.coursData?.find((item: any) =>
+      item._id.equals(contentId)
+      );
+      if(!courseContent ){
+        return next(new ErrorHandler("Invalid content ID !", 400));
+      }
+      // create new question object
+      const newQuestion:any ={
+        user:req.user,
+        question,
+        questionReplies:[],
+      }
+      // add this question to our course content 
+      courseContent.questions.push(newQuestion);
       
+
+
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
