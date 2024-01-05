@@ -8,7 +8,8 @@ import courseModel from "../models/courseModel";
 import { redis } from "../utils/redis";
 import mongoose from "mongoose";
 import path from "path";
-import { ejs } from "ejs";
+import ejs from "ejs";
+import sendMail from "../utils/sendMail";
 
 // upload course
 export const uploadCourse = catchAsyncError(
@@ -253,8 +254,56 @@ export const addAnswer = catchAsyncError(
           path.join(__dirname, "../mails/question-reply.ejs"),
           data
         );
-        
+        try {
+          await sendMail({
+            email: question.user.email,
+            subject: "Question Reply",
+            template: "question-reply.ejs",
+            data,
+          });
+        } catch (error: any) {
+          return next(new ErrorHandler(error.message, 500));
+        }
       }
+      res.status(200).json({ success: true, course });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
+
+// add review in course
+interface IAddReviewData {
+  review: string;
+  courseId: string;
+  rating: number;
+  userId: string;
+}
+export const addReview = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userCoureseList = req.user?.courses;
+      const courseId = req.params.id;
+      //if the course id exists in userCourseList based on _id
+      const courseExists = userCoureseList?.some(
+        (coures: any) => coures._id.toString() == courseId.toString()
+      );
+      if (!courseExists) {
+        return next(
+          new ErrorHandler("Your are not eligible to access this course!", 400)
+        );
+      }
+      const course=await courseModel.findById(courseId);
+      const {review,rating}=req.body as IAddReviewData;
+
+      const reviewData :any= {
+        user:req.user,
+        rating:rating,
+        comment:review,
+      }
+      course?.reviews.push(reviewData);
+      
+      
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
