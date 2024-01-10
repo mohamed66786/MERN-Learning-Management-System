@@ -17,6 +17,7 @@ export const createOrder = catchAsyncError(
     try {
       const { courseId, payment_info } = req.body as IOrder;
       const user = await userModel.findById(req.user?._id);
+      console.log(user?.courses)
       const courseExistInUser = user?.courses.some(
         (course: any) => course._id.toString() === courseId
       );
@@ -33,10 +34,10 @@ export const createOrder = catchAsyncError(
         courseId: course._id,
         userId: req.user?._id,
       };
-      newOrder(data, res, next);
+
       const mailData = {
         order: {
-          _id: course._id.slice(0, 6),
+          _id: course._id.toString().slice(0, 6),
           name: course.name,
           price: course.price,
           date: new Date().toLocaleDateString("en-US", {
@@ -46,6 +47,33 @@ export const createOrder = catchAsyncError(
           }),
         },
       };
+      const html = await ejs.renderFile(
+        path.join(__dirname, "../mails/order-confimation.ejs"),
+        { order: mailData } // send this data with the name (order)
+      );
+
+      try {
+        if (user) {
+          await sendMail({
+            email: user.email,
+            subject: "Order Confimation",
+            template: "order-confirmation.ejs",
+            data: mailData,
+          });
+        }
+      } catch (error: any) {
+        return next(new ErrorHandler(error.message, 500));
+      }
+
+      user?.courses.push(course?._id);
+      await user?.save();
+      const notification = await NotificationModel.create({
+        user: user?._id,
+        title: "New Order",
+        message: `You have anew order from ${course?.name}`,
+      });
+
+      newOrder(data, res, next);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
