@@ -17,8 +17,13 @@ export const createOrder = catchAsyncError(
     try {
       const { courseId, payment_info } = req.body as IOrder;
       const user = await userModel.findById(req.user?._id);
-      console.log(user?.courses)
-      const courseExistInUser = user?.courses.some(
+      // console.log(user?.courses.length);
+      if(!user?.courses.length){
+        return next(
+          new ErrorHandler("The Courses not found!", 400)
+        );
+      }
+      const courseExistInUser = user?.courses?.some(
         (course: any) => course._id.toString() === courseId
       );
       if (courseExistInUser) {
@@ -33,6 +38,7 @@ export const createOrder = catchAsyncError(
       const data: any = {
         courseId: course._id,
         userId: req.user?._id,
+        payment_info,
       };
 
       const mailData = {
