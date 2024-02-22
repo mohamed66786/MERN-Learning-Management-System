@@ -1,0 +1,22 @@
+PORT=8000
+ORIGIN=[
+    "http://localhost:3000"
+]
+NODE_ENV=development
+DB_URI="mongodb+srv://mohamed:mohamed@cluster0.maiv9qs.mongodb.net/LMS?retryWrites=true&w=majority"
+CLOUD_NAME=dhlm8mcsf
+CLOUD_API_KEY=517666592341543
+CLOUD_SECRET_KEY=IiEeqZ8vp4pzC-gr0ors33YVvZc
+REDIS_URL="rediss://default:a8376fcf3fb243a8a2ca101b0178396e@us1-smart-oyster-38254.upstash.io:38254"
+ACTIVATION_SECRET="somesecret"
+SNPT_HOST=smpt.gmail.com
+SNPT_PORT=456
+SNPT_SERVICE=gmail
+SNPT_MAIL=mohamedtarek7080@gmail.com
+SNPT_PASSWORD=vbsa bxou zpbn aefe
+ACCESS_TOKEN="3blG0_c0zP7|=CC1{2O:C`M'Vs@%Y"
+REFRESH_TOKEN="!bSsTN8Gj15J{rD2f8p@4"
+ACCESS_TOKEN_EXPIRE=5
+REFRESH_TOKEN_EXPIRE=3
+
+
