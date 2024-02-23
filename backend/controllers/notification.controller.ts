@@ -20,7 +20,7 @@ export const getNotification = catchAsyncError(
     }
   }
 );
- 
+
 // update notification status --- admin only
 export const updateNotification = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -33,6 +33,14 @@ export const updateNotification = catchAsyncError(
           ? (notification.status = "read")
           : notification.status;
       }
+      await notification.save();
+      const notifications = await NotificationModel.find().sort({
+        createdAt: -1,
+      });
+      res.status(201).json({
+        succsess: true,
+        notifications,
+      });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
