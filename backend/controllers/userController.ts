@@ -13,7 +13,7 @@ import {
   sendToken,
 } from "../utils/jwt";
 import { redis } from "../utils/redis";
-import { getUserById } from "../services/user.service";
+import { getAllUsersServiece, getUserById } from "../services/user.service";
 import cloudinary from "cloudinary";
 
 // register user
@@ -364,12 +364,23 @@ export const updateProfilePicture = catchAsyncError(
 
       await user?.save(); // update in database
       await redis.set(req.user?._id, JSON.stringify(user)); // update in redis
-     
+
       res.status(200).json({
         success: true,
         message: "The image updated successfully",
         user,
       });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
+
+//get all users -- only for admin
+export const getAllUsers = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      getAllUsersServiece(res);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }

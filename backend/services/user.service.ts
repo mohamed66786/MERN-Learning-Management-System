@@ -14,6 +14,7 @@
 // this to get user from cache redis #### that more effictive and more speed
 import { Response } from "express";
 import { redis } from "../utils/redis";
+import userModel from "../models/userModel";
 
 export const getUserById = async (id: string, res: Response) => {
   const userJson = await redis.get(id);
@@ -25,4 +26,13 @@ export const getUserById = async (id: string, res: Response) => {
     });
   }
 };
-  
+
+// get all users
+export const getAllUsersServiece = async (res: Response) => {
+  const userJson = await redis.get("users");
+  const users = await userModel.find().sort({ createdAt: -1 });
+  res.status(200).json({
+    success: true,
+    users,
+  });
+};
