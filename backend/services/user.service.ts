@@ -36,3 +36,16 @@ export const getAllUsersServiece = async (res: Response) => {
     users,
   });
 };
+
+//update user rule
+export const updateUserRuleService = async (
+  res: Response,
+  id: string,
+  role: string
+) => {
+  const user = await userModel.findByIdAndUpdate(id, { role }, { new: true });
+  res.status(200).json({
+    success: true,
+    user,
+  });
+};
