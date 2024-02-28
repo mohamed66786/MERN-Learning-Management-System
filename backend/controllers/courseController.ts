@@ -194,10 +194,10 @@ export const addQuestion = catchAsyncError(
       // add this question to our course content
       courseContent.questions.push(newQuestion);
       await NotificationModel.create({
-        user:req.user?._id,
-        title:"New Question Recieved",
-        message: `You have new question in ${courseContent.title}` 
-      })
+        user: req.user?._id,
+        title: "New Question Recieved",
+        message: `You have new question in ${courseContent.title}`,
+      });
       // save the updated course
       await course?.save();
       res.status(200).json({
@@ -253,10 +253,10 @@ export const addAnswer = catchAsyncError(
       if (req.user?._id === question.user._id) {
         // create anotification to admin
         await NotificationModel.create({
-          user:req.user?._id,
-          title:"New Question Reply Recieved",
-          message: `You have new question reply in ${courseContent.title}` 
-        })
+          user: req.user?._id,
+          title: "New Question Reply Recieved",
+          message: `You have new question reply in ${courseContent.title}`,
+        });
       } else {
         const data = {
           name: question.user.name,

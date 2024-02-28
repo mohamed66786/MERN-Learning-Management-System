@@ -9,7 +9,7 @@ import path from "path";
 import ejs from "ejs";
 import sendMail from "../utils/sendMail";
 import NotificationModel from "../models/notificationModel";
-import { newOrder } from "../services/order.service";
+import { getAllOrderServiece, newOrder } from "../services/order.service";
 
 //create order
 export const createOrder = catchAsyncError(
@@ -18,10 +18,8 @@ export const createOrder = catchAsyncError(
       const { courseId, payment_info } = req.body as IOrder;
       const user = await userModel.findById(req.user?._id);
       // console.log(user?.courses.length);
-      if(!user?.courses.length){
-        return next(
-          new ErrorHandler("The Courses not found!", 400)
-        );
+      if (!user?.courses.length) {
+        return next(new ErrorHandler("The Courses not found!", 400));
       }
       const courseExistInUser = user?.courses?.some(
         (course: any) => course._id.toString() === courseId
@@ -80,6 +78,16 @@ export const createOrder = catchAsyncError(
       });
 
       newOrder(data, res, next);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
+// get all order -- only for admin
+export const getAllOrders = catchAsyncError(
+  async (req: Request, res: Response, next: NextrFunction) => {
+    try {
+      getAllOrderServiece(res);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }

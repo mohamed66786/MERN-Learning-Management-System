@@ -58,4 +58,3 @@ cron.schedule("0 0 0 * * *", async () => {
   console.log("Deleted Read Notifcation!");
 });
 
-// add new one of the notification Man
