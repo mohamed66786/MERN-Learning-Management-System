@@ -37,9 +37,14 @@ courseRouter.put(
   authorizeRole("admin"),
   addReplyToReview
 );
-// get all courses from the users route
 courseRouter.put(
   "/get-courses",
+  isAuthenticated,
+  authorizeRole("admin"),
+  getAllCourse
+);
+courseRouter.delete(
+  "/delete-course/:id",
   isAuthenticated,
   authorizeRole("admin"),
   getAllCourse
