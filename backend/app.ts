@@ -8,7 +8,6 @@ import userRouter from "./routes/user.route";
 import courseRouter from "./routes/course.route";
 import orderRouter from "./routes/order.route";
 import notificationRouter from "./routes/notification.route";
-
 // body Parser
 app.use(express.json({ limit: "50mb" }));
 // cookie parser
@@ -19,7 +18,6 @@ app.use(
     origin: process.env.ORIGIN,
   })
 );
-
 // use routers
 app.use("/api/v1", userRouter, courseRouter, orderRouter,notificationRouter);
 

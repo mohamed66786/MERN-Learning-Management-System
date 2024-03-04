@@ -43,6 +43,7 @@ courseRouter.put(
   authorizeRole("admin"),
   getAllCourse
 );
+// delete the course form the list 
 courseRouter.delete(
   "/delete-course/:id",
   isAuthenticated,
