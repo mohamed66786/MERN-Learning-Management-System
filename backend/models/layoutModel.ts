@@ -19,7 +19,7 @@ interface layout extends Document {
   banner: {
     image: BannerImage;
     title: string;
-    subtitle: string;
+    subTitle: string;
   };
 }
 const faqSchema = new Schema<FaqItem>({
