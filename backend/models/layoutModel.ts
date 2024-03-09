@@ -1,5 +1,5 @@
 require("dotenv").config();
-import mongoose, { Document, Model, Schema, model } from "mongoose";
+import  { Document, Model, Schema, model } from "mongoose";
 interface FaqItem extends Document {
   question: string;
   answer: string;
