@@ -1,10 +1,19 @@
 "use client";
 
 import React, { FC, useState } from "react";
+import Heading from "./utils/Heading";
 
 interface Props {}
 
 const page: FC<Props> = (props) => {
-  return <div>hello</div>;
+  return (
+    <div>
+      <Heading
+        title="Elearning"
+        description="The best sit for learning"
+        keywords="programing,MERN,Algorithms,Math,Software"
+      />
+    </div>
+  );
 };
 export default page;
