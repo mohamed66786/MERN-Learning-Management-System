@@ -5,7 +5,9 @@ import Heading from "./utils/Heading";
 import Header from "./components/Header";
 interface Props {}
 
-const page: FC<Props> = (props) => {
+const Page: FC<Props> = (props) => {
+  const [open, setOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState(0);
   return (
     <div>
       <Heading
@@ -13,8 +15,8 @@ const page: FC<Props> = (props) => {
         description="The best sit for learning"
         keywords="programing,MERN,Algorithms,Math,Software"
       />
-      <Header />
+      <Header open={open} setOpen={setOpen} activeItem={activeItem} />
     </div>
   );
 };
-export default page;
+export default Page;
