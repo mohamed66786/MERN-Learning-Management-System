@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { FC, useState } from "react";
 
 type Props = {
@@ -29,7 +30,17 @@ const Header: FC<Props> = (props) => {
               dark:border-[#ffffff1c] shadow-xl  transition duration-500`
             : "w-full border-b dark:border-[#ffff1c] h-[80px] z-[80] dark:shadow"
         }`}
-      ></div>
+      >
+        <div className="w-[95%] 800px:w-[92%] m-auto py-2 h-full">
+          <div className="w-full h-80px flex items-center justify-between py-3">
+            <Link href={"/"} className={`text-[25px] font-Poppins font-[500] text-black hover:text-[blue] dark:text-white`}>
+              ELearning
+
+            </Link>
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 };
