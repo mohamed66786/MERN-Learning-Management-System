@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { FC, useState } from "react";
+import NavItems from "../utils/NavItems";
 
 type Props = {
   open: boolean;
@@ -33,12 +34,18 @@ const Header: FC<Props> = (props) => {
       >
         <div className="w-[95%] 800px:w-[92%] m-auto py-2 h-full">
           <div className="w-full h-80px flex items-center justify-between py-3">
-            <Link href={"/"} className={`text-[25px] font-Poppins font-[500] text-black hover:text-[blue] dark:text-white`}>
-              ELearning
-
-            </Link>
+            <div>
+              <Link
+                href={"/"}
+                className={`text-[25px] font-Poppins font-[500] text-black hover:text-[blue] dark:text-white`}
+              >
+                ELearning
+              </Link>
+            </div>
+            <div className="flex items-center">
+            <NavItems activeItem={props.activeItem} isMobile={false}/>
+            </div>
           </div>
-
         </div>
       </div>
     </div>
