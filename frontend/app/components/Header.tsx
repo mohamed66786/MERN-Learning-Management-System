@@ -2,8 +2,8 @@
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import NavItems from "../utils/NavItems";
-import {ThemeSwitcher} from "../utils/ThemeSwitcher";
-
+import { ThemeSwitcher } from "../utils/ThemeSwitcher";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -12,7 +12,7 @@ type Props = {
 
 const Header: FC<Props> = (props) => {
   const [active, setActive] = useState(false);
-  const [openSidebar, setOpenSidebar] = useState(0);
+  const [openSidebar, setOpenSidebar] = useState(false);
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 85) {
@@ -44,8 +44,16 @@ const Header: FC<Props> = (props) => {
               </Link>
             </div>
             <div className="flex items-center">
-            <NavItems activeItem={props.activeItem} isMobile={false}/>
-            <ThemeSwitcher/>
+              <NavItems activeItem={props.activeItem} isMobile={false} />
+              <ThemeSwitcher />
+              {/* only for mobile */}
+              <div className="800px:hidden">
+                <HiOutlineMenuAlt3
+                  size={25}
+                  className="cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpenSidebar(true)}
+                />
+              </div>
             </div>
           </div>
         </div>

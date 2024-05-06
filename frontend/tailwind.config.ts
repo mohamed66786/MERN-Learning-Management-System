@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         Poppins: ["var(--font-Poppins)"],
-        Josefin: ["var(--font-Josefin)"],
+        Josefina: ["var(--font-Josefina)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
