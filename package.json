@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "all": "concurrently \"npm run dev\" \"npm run dev\""
+    "start": "npm run dev --prefix backend",
+    "client": "npm run dev --prefix frontend",
+    "all": "concurrently \"npm start\" \"npm run client\""
   },
   "dependencies": {
     "create-next-app": "^14.1.3"
