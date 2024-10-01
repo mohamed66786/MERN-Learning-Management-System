@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "all": "concurrently \"npm run dev\" \"npm run dev\""
+  },
   "dependencies": {
     "create-next-app": "^14.1.3"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
   }
 }

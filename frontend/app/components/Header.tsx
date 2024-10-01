@@ -27,7 +27,6 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
       setOpenSidebar(false);
     }
   };
-  console.log(active);
   return (
     <div className="w-full relative">
       <div

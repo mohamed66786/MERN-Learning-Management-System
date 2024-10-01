@@ -11,11 +11,13 @@ const Hero: FC<Props> = (props) => {
         className="absolute top-[100px] 1000px:top-[unset] 1500px:h-[700px] 1500px:w-[700px] 
     1100px:h-[600px] 1100px:w-[600px]   "
       >
-        <div className="1000px:w-[40%] flex 1000px:min-h-screen items-center justify-end pt-[70px] 1000px:pt-[0] z-10">
+        <div className="flex 1000px:min-h-screen items-center justify-end pt-[70px] 1000px:pt-[0] z-10">
           <Image
-            src=""
-            alt="this is the ELERNING image"
-            className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] h-[auto] z-[10] "
+            src="/2.jpg"  
+            alt="this is the E-LERNING image"
+            width={800}
+            height={600}
+            className="rounded-lg object-contain 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] h-[auto] z-[10] "
           />
         </div>
         <div
@@ -44,7 +46,7 @@ const Hero: FC<Props> = (props) => {
           </div>
           <br />
           <br />
-          <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] flex items-center">
+          {/* <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] flex items-center">
             <Image
               src={require("../../../public/assests/client-1.jpg")}
               alt=""
@@ -69,7 +71,7 @@ const Hero: FC<Props> = (props) => {
                 View Courses
               </Link>{" "}
             </p>
-          </div>
+          </div> */}
           <br />
         </div>
       </div>
