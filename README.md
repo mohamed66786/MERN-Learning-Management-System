@@ -7,19 +7,19 @@ Mohamed Tarek</a></h1>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=100rabhcsmc&label=Profile%20views&color=0e75b6&style=flat" alt="100rabhcsmc" /> </p>
 
-<p align="left"> <a href="https://twitter.com/100rabhcsmc" target="blank"><img src="https://img.shields.io/twitter/follow/100rabhcsmc?logo=twitter&style=for-the-badge" alt="100rabhcsmc" /></a> </p>
+<p align="left"> <a href="" target="blank"><img src="https://img.shields.io/twitter/follow/100rabhcsmc?logo=twitter&style=for-the-badge" alt="100rabhcsmc" /></a> </p>
 
 <a target="_blank" align="center">
   <img align="right" top="500" height="300" width="400" alt="GIF" src="https://media.giphy.com/media/SWoSkN6DxTszqIKEqv/giphy.gif">
 </a>
 
-- 🔭 I’m currently working in <a href="https://phoenix.tech/griffyn/" target="blank">Learning by building Projects & Freelancer </a>
+- 🔭 I’m currently working in <a href="" target="blank">Learning by building Projects & Freelancer </a>
 
 - 🌱 I’m currently Working on Full Stack Apps
 
 - 🤝 I’m available for freelancing.
 
-- 🌱 I’m currently learning in-depth Software Engineer and computer science  <a href="https://github.com/100rabhcsmc/100DaysOfSwift" target="blank">100DaysOfSwift</a>
+- 🌱 I’m currently learning in-depth Software Engineer and computer science  <a href="" target="blank">100DaysOfSwift</a>
 
 - 💬 Ask me about **Reactjs & Nodejs& JS & .Net Plateform & C# **
 
