@@ -1,4 +1,4 @@
-"use client";
+"use client"; // this component is used as client side rendering
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import NavItems from "../utils/NavItems";
