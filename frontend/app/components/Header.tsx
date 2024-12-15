@@ -6,6 +6,8 @@ import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import CustomModel from "../utils/CustomModel";
 import Login from "../components/Auth/Login";
+import SignUp from "../components/Auth/SignUp";
+
 
 type Props = {
   open: boolean;
@@ -67,7 +69,7 @@ const Header: FC<Props> = ({ activeItem, setOpen,route ,open,setRoute}) => {
               <HiOutlineUserCircle
                 size={25}
                 className=" hidden 800px:block cursor-pointer dark:text-white text-black"
-                onClick={() => setOpen(true)}
+                onClick={() => {setOpen(true);setRoute("login")}}
               />
             </div>
           </div>
@@ -111,6 +113,24 @@ const Header: FC<Props> = ({ activeItem, setOpen,route ,open,setRoute}) => {
               setRoute={setRoute}
               activeItem={activeItem}
               component={Login}
+            />)
+          }
+        </>
+      )
+
+      }
+
+{ 
+      route==="Sign-Up" &&(
+
+        <>
+          {
+            open&&(<CustomModel 
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={SignUp}
             />)
           }
         </>

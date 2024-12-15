@@ -15,17 +15,19 @@ type Props = {
 };
 
 const schema = Yup.object().shape({
+  name: Yup.string().required("Please enter your name! "),
   email: Yup.string()
     .email("invalid email!")
     .required("Please enter your email!"),
   password: Yup.string().required("Please enter your password!").min(6),
 });
 
-const Login: FC<Props> = ({ setRoute }) => {
+const SignUp: FC<Props> = ({ setRoute }) => {
   const [show, setShow] = useState(false);
 
   const formik = useFormik({
     initialValues: {
+      name: " ",
       email: "",
       password: "",
     },
@@ -39,11 +41,36 @@ const Login: FC<Props> = ({ setRoute }) => {
 
   return (
     <div className="w-full">
-      <h1 className={`${styles.title}`}>Log In</h1>
+      <h1 className={`${styles.title}`}>Sign Up</h1>
       <form
         onSubmit={handleSubmit}
         className="max-w-md mx-auto bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md"
       >
+        {/* Name Field */}
+        <div className="mb-4">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 mb-1 dark:text-white"
+          >
+            Name:
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            className={`w-full px-3 py-2 border dark:bg-white text-black ${
+              errors.name && touched.name
+                ? "border-red-500"
+                : "border-gray-300"
+            } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            onChange={handleChange}
+            placeholder="Please Ente you full Name..."
+            value={values.name}
+          />
+          {errors.name && touched.name && (
+            <div className="text-red-500 text-sm mt-1">{errors.name}</div>
+          )}
+        </div>
         {/* Email Field */}
         <div className="mb-4">
           <label
@@ -65,11 +92,10 @@ const Login: FC<Props> = ({ setRoute }) => {
             placeholder="example@email.com"
             value={values.email}
           />
-          {formik.errors.email && touched.email && (
+          {errors.email && touched.email && (
             <div className="text-red-500 text-sm mt-1">{errors.email}</div>
           )}
         </div>
-
         {/* Password Field */}
         <div className="w-full relative mb-6 ">
           <label
@@ -108,13 +134,12 @@ const Login: FC<Props> = ({ setRoute }) => {
             <div className="text-red-500 text-sm mt-1">{errors.password}</div>
           )}
         </div>
-
         {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
         >
-          Login
+          Sign Up
         </button>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white ">
@@ -128,12 +153,12 @@ const Login: FC<Props> = ({ setRoute }) => {
           />
         </div>
         <h5 className="text-center pt-4 font-Poppins text-[14px]">
-          Not have any account?{" "}
+          Have an account?{" "}
           <span
             className="text-[#2190ff] pl-1 cursor-pointer "
-            onClick={() => setRoute("Sign-Up")}
+            onClick={() => setRoute("login")}
           >
-            Sign Up
+            Log In
           </span>
         </h5>
       </form>
@@ -142,4 +167,4 @@ const Login: FC<Props> = ({ setRoute }) => {
   );
 };
 
-export default Login;
+export default SignUp;
