@@ -27,13 +27,13 @@ const SignUp: FC<Props> = ({ setRoute }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: " ",
+      name: "",
       email: "",
       password: "",
     },
     validationSchema: schema,
     onSubmit: async (email, password) => {
-      console.log(email, password);
+      setRoute("Verification");
     },
   });
 
@@ -64,7 +64,7 @@ const SignUp: FC<Props> = ({ setRoute }) => {
                 : "border-gray-300"
             } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
             onChange={handleChange}
-            placeholder="Please Ente you full Name..."
+            placeholder="Please Ente your full Name..."
             value={values.name}
           />
           {errors.name && touched.name && (
