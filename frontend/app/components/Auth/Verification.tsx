@@ -28,8 +28,10 @@ const Verification: FC<Props> = (props: Props) => {
     2: "",
     3: "",
   });
+  const [route, setRoute] = useState("Verification");
+
   const verificationHandler = async () => {
-    console.log("test");
+    setInvalidError(true);
   };
   const handleInputChange = (index: number, value: string) => {
     setInvalidError(false);
@@ -56,7 +58,7 @@ const Verification: FC<Props> = (props: Props) => {
       <div className="m-auto flex items-center justify-around">
         {Object.keys(verifyNumber).map((key, index) => (
           <input
-            type="text"
+            type="number"
             key={key}
             ref={inputRefs[index]}
             className={`w-[65px] h-[65px] bg-transparent border-[3px] rounded-[10px] flext
@@ -74,6 +76,24 @@ const Verification: FC<Props> = (props: Props) => {
           />
         ))}
       </div>
+      <br />
+      <br />
+      <div className="w-full flex justify-center">
+        <button className={`${styles.button}`} onClick={verificationHandler}>
+          Verify OTP
+        </button>
+      </div>
+      <br />
+      <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white ">
+        Go back to SignIn ?{" "}
+        <span
+          className="text-[#2190ff] pl-1 cursor-pointer"
+          onClick={() => setRoute("login")}
+        >
+          {" "}
+          Sign In
+        </span>
+      </h5>
     </div>
   );
 };
